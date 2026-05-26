@@ -3,34 +3,35 @@ import java.util.*;
 public class DeleteMinimumInMinHeap {
     public static void delete(ArrayList<Integer> arr ,int i){
 
-        // step1 :- swap first to last
-        int temp = arr.get(0);
-        arr.set(0,arr.get(arr.size()-1));
-        arr.set(arr.size()-1, temp);
+        int last = arr.get(arr.size()-1);
+        int first = arr.get(0);
 
-        // step2:- delete last element
+        arr.set(0, last);
+        arr.set(arr.size()-1, first);
         arr.remove(arr.size()-1);
 
-        // step3:- set our minHeap
-        Heapify(arr , 0);
+        heapify(arr , 0);
     }
-    private  static void Heapify(ArrayList<Integer> arr , int i){
-            int leftIdx = 2*i+1;
-            int rightIdx = 2*i+2;
+    private  static void heapify(ArrayList<Integer> arr , int i){
+            int leftChild = 2*i+1;
+            int rightChild = 2*i+2;
             int minIdx = i;
 
-            if(leftIdx <arr.size() && arr.get(leftIdx)<arr.get(minIdx)){
-                minIdx = leftIdx;
+            if(leftChild <arr.size()&& arr.get(leftChild)<arr.get(minIdx)){
+                minIdx = leftChild;
             }
-            if(rightIdx <arr.size() && arr.get(rightIdx)<arr.get(minIdx)){
-                minIdx = rightIdx;
+
+            if(rightChild <arr.size()&& arr.get(rightChild)<arr.get(minIdx)){
+                minIdx = rightChild;
             }
-            if(minIdx !=i){
-                // swap
+
+            if(minIdx != i){
                 int temp = arr.get(i);
+
                 arr.set(i, arr.get(minIdx));
                 arr.set(minIdx, temp);
-                Heapify(arr , minIdx);
+
+                heapify(arr, minIdx);
             }
         }
 
